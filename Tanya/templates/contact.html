@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css'%}">
+
+    <title>Contact</title>
+</head>
+<body >
+
+    <h1 style="color: #e75480; padding-left:10px;">Contacts</h1>
+    <h4 style="padding-left:10px;">Write to me if you have any questions</h4>
+    <p style="padding-left:10px;">
+        Please write your name, email address and message.
+    </p>
+    <div class="container">
+        <div style="color: #e75480;" id="block1">
+            <form method="post">
+                {% csrf_token %}
+                {{form}}
+                <button style="background: #e75480;" class="contact__button" type="submit">Send</button>
+            </form>
+        </div>
+        <div class="block2__img" id="block2">
+            <img src="{% static 'assets/img/image.png'%}" width="520" style="position:relative; bottom: 170px">
+
+        </div>
+    </div>
+</body>
+</html>
