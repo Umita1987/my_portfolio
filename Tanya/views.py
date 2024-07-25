@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 
+from portfolio.settings import EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
+
 from .forms import ContactForm
 from .models import Home, About, Profile, Category, Portfolio
 
@@ -44,11 +46,16 @@ def contact(request):
                 'message': form.cleaned_data['message'],
             }
             message = "\n".join(body.values())
-            email = body['email']
+
             try:
                 send_mail(subject, message,
-                          email,
-                          ['sailor101187@gmail.com'])
+                          "sailor101187@gmail.com",
+                          ['sailor101187@gmail.com'],
+                          auth_user=EMAIL_HOST_USER,
+                          auth_password=EMAIL_HOST_PASSWORD,
+                          fail_silently=False,
+                          )
+
             except BadHeaderError:
                 return HttpResponse('Найден некорректный заголовок')
             return redirect("index")

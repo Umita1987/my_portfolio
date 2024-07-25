@@ -224,8 +224,8 @@ img{
     display: flex;
     justify-content: center;
     padding-top: 1rem;
-    width: 120px;
-    height: 120px;
+    width: 135px;
+    height: 150px;
     background-color: #e75480;
     border-radius: 50%;
     border: 2px  solid #e75480;
@@ -445,10 +445,10 @@ img{
     }
     .about__img{
         width: 250px;
-        height: 250px;
+        height: 280px;
     }
     .about__img img{
-        width: 170px;
+        width: 200px;
     }
 
     .skills__container{
@@ -492,6 +492,7 @@ img{
         width: 500px;
         right: 24%;
     }
+
 }
 
 
@@ -515,11 +516,10 @@ img{
    0% {
    margin-top: 0px;
         }
-  50% {
-   margin-top: 60px
+   0% {
    }
    100%{
-   margin-top: 0px;
+   margin-top: 50px;
         }
    }
 @keyframes opacity {hn
