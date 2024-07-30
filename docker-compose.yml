@@ -8,8 +8,7 @@ volumes:
 services:
   web:
     image: portfolio:latest
-    build:
-      context: .
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - static:/static_root/
       - media:/media_root/
@@ -18,38 +17,13 @@ services:
     environment:
       DEBUG: '1'
 
-    command: sh -c "python manage.py collectstatic --no-input &&
-      python manage.py makemigrations &&
-      python manage.py migrate &&
-      gunicorn --workers=4 --reload --max-requests=1000 backend.wsgi -b 0.0.0.0:8000"
-
-
 
   nginx:
-    container_name: nginx
-    working_dir: /app
-    image: nginx:stable-alpine
-    restart: always
+    image: nginx:latest
     ports:
       - "80:80"
-      - "443:443"
     volumes:
-      - static:/static_root
-      - media:/media_root
       - nginx_conf:/nginx.conf
-      - ./docker/certbot/conf:/etc/letsencrypt:ro
-      - ./docker/certbot/www:/var/www/certbot:ro
     depends_on:
       - web
-
-
-
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./docker/certbot/conf:/etc/letsencrypt:rw
-      - ./docker/certbot/www:/var/www/certbot:rw
-    command: certonly --webroot --webroot-path=/var/www/certbot/ --email umita1987@mail.ru --agree-tos --no-eff-email -d tanyashustova.com -d www.tanyashustova.com
-    depends_on:
-      - nginx
+    restart: always
